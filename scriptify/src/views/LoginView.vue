@@ -84,8 +84,10 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #000; /* 넷플릭스 스타일의 검은 배경 */
+  background: linear-gradient(to bottom, #232526, #414345);
+  background: #232526;
   color: #fff;
+
 }
 
 /* 로그인 박스 */
@@ -93,10 +95,12 @@
   background-color: rgba(0, 0, 0, 0.8); /* 투명도 있는 검은 박스 */
   padding: 40px;
   border-radius: 8px;
+  border: none;
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
+  background: linear-gradient(to bottom, #232526, #414345);
 }
 
 /* 제목 스타일 */
