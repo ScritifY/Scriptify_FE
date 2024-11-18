@@ -1,6 +1,6 @@
 <template>
     <div>
-        회원가입
+        호원가입
     </div>
 </template>
 
@@ -8,6 +8,6 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
