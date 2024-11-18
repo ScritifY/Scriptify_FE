@@ -1,0 +1,59 @@
+<template>
+    <header>
+        <nav class="navigation">
+            <div class="navbar_home">
+                <RouterLink :to="{ name: 'home' }" class="router_home">Scriptify</RouterLink>
+            </div>
+            <ul class="navbar_list">
+                <li>
+                    <RouterLink :to="{ name: 'review' }" class="router_review">Review</RouterLink>
+                </li>
+                <li>
+                    <RouterLink :to="{ name: 'login' }" class="router_login">login</RouterLink>
+                    <RouterLink :to="{ name: 'signup' }" class="router_sign_up">sign up</RouterLink>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</template>
+
+<script setup>
+    import { RouterLink, } from 'vue-router'
+</script>
+
+<style scoped>
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:beige;
+    padding: 8px 20px;
+    font-family: impact ;
+    color: black;
+    font-size: 20px;
+    
+}
+.navbar_list {
+    display: flex;
+    list-style: none;
+    padding-left: 15px;
+    gap: 16px
+}
+.router_home{
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+.router_review{
+    text-decoration: none;
+    color: black;
+}
+.router_login{
+    text-decoration: none;
+    color: black;
+}
+.router_sign_up{
+    text-decoration: none;
+    color: black;
+}
+</style>
