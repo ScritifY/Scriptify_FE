@@ -1,12 +1,35 @@
 <template>
     <div class="home-view">
       <!-- 버튼 클릭 시 InputComponent가 보이도록 토글 -->
-      <button @click="showInput = !showInput">Start Chat</button>
+      <!-- <button @click="showInput = !showInput">Start Chat</button> -->
   
       <!-- InputComponent는 showInput이 true일 때만 보임 -->
-      <InputComponent v-if="showInput" @send-input="handleMessage"/>
+      <!-- <InputComponent v-if="showInput" @send-input="handleMessage"/> -->
   
       <!-- 채팅 메시지들을 표시 -->
+      <!-- <button @click="handleButtonClick">Start Chat</button>
+
+      <InputComponent v-if="isFirst" @send-input="handleMessage" />
+      <SecondInputComponent
+       v-else
+       @handle-line = "handleLine"
+       @handle-scenario-change = "handleScenarioChange"
+       @send-detail = "handleDetail"
+       /> -->
+       <!-- 버튼: InputComponent → SecondInputComponent 순차적으로 표시 -->
+    <button @click="handleButtonClick">Start Chat</button>
+
+    <!-- InputComponent와 SecondInputComponent는 조건부로 표시 -->
+    <InputComponent
+      v-if="showInput && isFirst"
+      @send-input="handleMessage"
+    />
+    <SecondInputComponent
+      v-else-if="showInput && !isFirst"
+      @handle-line="handleLine"
+      @handle-scenario-change="handleScenarioChange"
+      @send-detail="handleDetail"
+    />
       <div class="chat-container">
         <BubbleChatComponent :messages="messages"/>
       </div>
@@ -18,16 +41,28 @@
   import axios from 'axios';
   import InputComponent from '@/components/chat/InputComponent.vue';
   import BubbleChatComponent from '@/components/chat/BubbleChatComponent.vue';
+  import SecondInputComponent from '@/components/chat/SecondInputComponent.vue';
+
   
   // 채팅 메시지들
   const chatMessages = ref([]);
   const showInput = ref(false);
   const messages = ref([])
   const cnt = ref(0)
+  const isFirst = ref(true)
 
   // 메시지를 처리하는 함수
+  const handleButtonClick = () => {
+    if (!showInput.value) {
+      // 첫 번째 버튼 클릭 시 InputComponent 표시
+      showInput.value = true;
+    } else {
+      // 두 번째 버튼 클릭 시 SecondInputComponent로 전환
+      isFirst.value = false;
+    }
+  };
   const handleMessage = (input) => {
-
+    isFirst.value = false
     showInput.value = false;
     const url = 'tempurl'
     console.log(url)
@@ -42,26 +77,22 @@
     )
     cnt.value += 1
     console.log(messages.value)
-    // axios
-    //     .post(url,
-    //         {
-                
-    //         }
-    //     )
+  }
+  const handleLine = (input) => {
+    console.log(input)
+    showInput.value = false; // 컴포넌트 숨김
 
   }
-//   const handleMessage = async (input) => {
-//     // 1. 백엔드 요청 (예시로 fetch 사용)
-//     // 2. 응답 받기
-//     const data = await response.json();
-  
-//     // 3. 받은 응답을 채팅 메시지 배열에 추가
-//     chatMessages.value.push({ type: 'request', text: input.message });
-//     chatMessages.value.push({ type: 'response', text: data.response });
-  
-//     // 4. 채팅이 끝나면 InputComponent를 숨김
-//     showInput.value = false;
-//   };
+  const handleScenarioChange = (input) => {
+    console.log(input)
+    showInput.value = false; // 컴포넌트 숨김
+
+  }
+  const handleDetail = (input) => {
+    console.log(input)
+    showInput.value = false; // 컴포넌트 숨김
+
+  }
   </script>
   
   <style scoped>
