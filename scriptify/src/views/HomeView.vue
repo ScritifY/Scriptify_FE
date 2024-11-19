@@ -1,25 +1,8 @@
 <template>
     <div class="home-view">
-      <!-- 버튼 클릭 시 InputComponent가 보이도록 토글 -->
-      <!-- <button @click="showInput = !showInput">Start Chat</button> -->
-  
-      <!-- InputComponent는 showInput이 true일 때만 보임 -->
-      <!-- <InputComponent v-if="showInput" @send-input="handleMessage"/> -->
-  
-      <!-- 채팅 메시지들을 표시 -->
-      <!-- <button @click="handleButtonClick">Start Chat</button>
 
-      <InputComponent v-if="isFirst" @send-input="handleMessage" />
-      <SecondInputComponent
-       v-else
-       @handle-line = "handleLine"
-       @handle-scenario-change = "handleScenarioChange"
-       @send-detail = "handleDetail"
-       /> -->
-       <!-- 버튼: InputComponent → SecondInputComponent 순차적으로 표시 -->
     <button @click="handleButtonClick">Start Chat</button>
 
-    <!-- InputComponent와 SecondInputComponent는 조건부로 표시 -->
     <InputComponent
       v-if="showInput && isFirst"
       @send-input="handleMessage"
@@ -66,11 +49,8 @@
     showInput.value = false;
     const url = 'tempurl'
     console.log(url)
-    console.log(input)
-    // messages.value = [
-    // { id: 1, type: 'request', content: '안녕하세요, 요청 메시지입니다.' },
-    // { id: 2, type: 'response', content: '안녕하세요, 응답 메시지입니다.' },
-    // ];
+    console.log(input);
+    
     messages.value.push(
       { id: 1, type: 'request', content: '안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.'+cnt.value },
       { id: 2, type: 'response', content: '안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.' },
@@ -79,7 +59,7 @@
     console.log(messages.value)
   }
   const handleLine = (input) => {
-    console.log(input)
+    console.log('대사')
     showInput.value = false; // 컴포넌트 숨김
 
   }
