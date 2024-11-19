@@ -51,11 +51,5 @@
   </script>
   
   <style>
-  #app {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin-top: 20px;
-    background: linear-gradient(to bottom, #232526, #414345);
-  }
   </style>
   
