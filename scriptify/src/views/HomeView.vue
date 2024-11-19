@@ -8,34 +8,47 @@
   
       <!-- 채팅 메시지들을 표시 -->
       <div class="chat-container">
-        <ChatResponseComponent v-for="(message, index) in chatMessages" :key="index" :message="message" />
+        <BubbleChatComponent :messages="messages"/>
       </div>
     </div>
 </template>
   
   <script setup>
   import { ref } from 'vue';
-
-  import ChatResponseComponent from '@/components/chat/ChatResponseComponent.vue';
   import axios from 'axios';
   import InputComponent from '@/components/chat/InputComponent.vue';
+  import BubbleChatComponent from '@/components/chat/BubbleChatComponent.vue';
   
   // 채팅 메시지들
   const chatMessages = ref([]);
   const showInput = ref(false);
-  
+  const messages = ref([])
+  const cnt = ref(0)
+
   // 메시지를 처리하는 함수
   const handleMessage = (input) => {
+
     showInput.value = false;
     const url = 'tempurl'
     console.log(url)
     console.log(input)
+    // messages.value = [
+    // { id: 1, type: 'request', content: '안녕하세요, 요청 메시지입니다.' },
+    // { id: 2, type: 'response', content: '안녕하세요, 응답 메시지입니다.' },
+    // ];
+    messages.value.push(
+      { id: 1, type: 'request', content: '안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.안녕하세요, 요청 메시지입니다.'+cnt.value },
+      { id: 2, type: 'response', content: '안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.안녕하세요, 응답 메시지입니다.' },
+    )
+    cnt.value += 1
+    console.log(messages.value)
     // axios
     //     .post(url,
     //         {
                 
     //         }
     //     )
+
   }
 //   const handleMessage = async (input) => {
 //     // 1. 백엔드 요청 (예시로 fetch 사용)
@@ -66,12 +79,12 @@
   .chat-container {
     width: 100%;
     max-width: 600px;
-    height: 400px;
+    height: 85%;
     overflow-y: scroll;
     border: 1px solid #ccc;
     padding: 10px;
     margin-top: 20px;
-    background-color: #f9f9f9;
+    background-color:beige;
   }
   </style>
   
