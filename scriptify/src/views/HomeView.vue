@@ -4,35 +4,38 @@
       <button @click="showInput = !showInput">Start Chat</button>
   
       <!-- InputComponent는 showInput이 true일 때만 보임 -->
-      <InputComponent v-if="showInput" @sendMessage="handleMessage"/>
+      <InputComponent v-if="showInput" @send-input="handleMessage"/>
   
       <!-- 채팅 메시지들을 표시 -->
       <div class="chat-container">
         <ChatResponseComponent v-for="(message, index) in chatMessages" :key="index" :message="message" />
       </div>
     </div>
-  </template>
+</template>
   
   <script setup>
   import { ref } from 'vue';
-  import InputComponent from './InputComponent.vue';
+
   import ChatResponseComponent from '@/components/chat/ChatResponseComponent.vue';
-import axios from 'axios';
+  import axios from 'axios';
+  import InputComponent from '@/components/chat/InputComponent.vue';
   
   // 채팅 메시지들
   const chatMessages = ref([]);
   const showInput = ref(false);
   
   // 메시지를 처리하는 함수
-  const handleMessage = () => {
+  const handleMessage = (input) => {
+    showInput.value = false;
     const url = 'tempurl'
-
-    axios
-        .post(url,
-            {
+    console.log(url)
+    console.log(input)
+    // axios
+    //     .post(url,
+    //         {
                 
-            }
-        )
+    //         }
+    //     )
   }
 //   const handleMessage = async (input) => {
 //     // 1. 백엔드 요청 (예시로 fetch 사용)
@@ -71,4 +74,5 @@ import axios from 'axios';
     background-color: #f9f9f9;
   }
   </style>
+  
   
