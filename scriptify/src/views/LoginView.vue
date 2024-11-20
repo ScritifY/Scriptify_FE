@@ -84,7 +84,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #232526, #414345);
   background: #d5c2b4;
   color: #fff;
   

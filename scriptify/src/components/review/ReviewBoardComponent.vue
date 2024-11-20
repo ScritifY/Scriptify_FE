@@ -27,7 +27,7 @@
   });
   </script>
   
-  <style>
+  <style scoped>
   .review-board {
     display: flex;
     flex-direction: column;
@@ -45,6 +45,10 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    height: 30px;
   }
   
   .review-left {

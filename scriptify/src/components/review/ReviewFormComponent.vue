@@ -1,6 +1,6 @@
 <template>
     <div class="review-form">
-      <h2>리뷰 작성하기</h2>
+
       <form @submit.prevent="submitReview">
         <div>
           <label for="name">이름:</label>
@@ -14,9 +14,13 @@
         </div>
         <div>
           <label for="comment">코멘트:</label>
-          <textarea v-model="newReview.comment" id="comment" placeholder="코멘트 입력" required></textarea>
+          <textarea class="comment" v-model="newReview.comment" id="comment" placeholder="코멘트 입력" required></textarea>
         </div>
-        <button type="submit">작성</button>
+        <div class="btn-container">
+          <button class="btn-send" type="submit">
+            <font-awesome-icon class = "fa-2x" :icon="['far', 'paper-plane']" />
+          </button>
+        </div>
       </form>
     </div>
   </template>
@@ -42,7 +46,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
   .review-form {
     border: 1px solid #ccc;
     padding: 20px;
@@ -51,6 +55,8 @@
     width: 300px;
     margin: 0 auto;
     text-align: left;
+    background-color: #f0e5dd;
+    height: 300px;
   }
   form div {
     margin-bottom: 10px;
@@ -58,6 +64,7 @@
   form label {
     display: block;
     margin-bottom: 5px;
+    border: 1px ridge bisque;
   }
   form input,
   form select,
@@ -66,19 +73,42 @@
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    border: 2px ridge bisque;
+    
+    
   }
   button {
     display: block;
     margin-top: 10px;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #9f8d80;;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+
   }
-  button:hover {
-    background-color: #0056b3;
+  /* button:hover {
+    background-color: #9f8d80;;
+  } */
+  .comment{
+    height: 50px;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: end;
+  }
+
+  .btn-send {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-send:hover {
+    background-color: #7a695d;
   }
   </style>
   

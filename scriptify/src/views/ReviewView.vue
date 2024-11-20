@@ -1,9 +1,15 @@
 <template>
-    <div id="app">
-      <h1>여러분의 사용 후기를 남겨주세요!</h1>
+    <div class="review-container" >
+      <p class="recommend-ment">여러분의 사용 후기를 남겨주세요!</p>
       <br>
-      <button @click="toggleForm">
+      <!-- <button @click="toggleForm">
       {{ showForm ? '작성 취소' : '리뷰 작성하기' }}
+      </button> -->
+      <button class="btn-toggle" @click="toggleForm">
+        <font-awesome-icon 
+          class="fa-2x" 
+          :icon="showForm ? ['fas', 'reply'] : ['fas', 'pen']" 
+        />
       </button>
       <ReviewFormComponent v-if="showForm" @submit-review="addReview" />
       <ReviewBoard :reviews="reviews" />
@@ -47,9 +53,30 @@
   const addReview = (newReview) => {
     reviews.value.unshift(newReview);
     showForm.value = false;
+    console.log(newReview)
   };
   </script>
   
-  <style>
+  <style scoped>
+
+  .review-container{
+    background: linear-gradient(to bottom, #d5c2b4, #f0e5dd);
+    /* position: relative; */
+  }
+  .recommend-ment{
+    text-align: center;
+    font-size: 20px;
+    padding-top: 30px;
+  }
+  .btn-toggle{
+    position: relative;
+
+    left: 88%; /* 수평 중앙 */
+    transform: translate(-50%, -50%); /* 정확히 중앙에 위치시킴 */
+    background-color: #d5c2b4;
+    /* padding: 10px 20px; */
+
+  }
+
   </style>
   
