@@ -17,7 +17,7 @@
   </template>
   
   <script setup>
-  import ReviewBoard from '@/components/review/ReviewBoard.vue';
+  import ReviewBoard from '@/components/review/ReviewBoardComponent.vue';
   import { ref } from 'vue';
   import ReviewFormComponent from '@/components/review/ReviewFormComponent.vue';
   
