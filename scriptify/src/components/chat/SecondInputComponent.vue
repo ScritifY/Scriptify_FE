@@ -29,7 +29,7 @@ const showDetailInput = ref(false);
     padding: 10px;
     width: 300px;
   }
-  
+
   button {
     padding: 8px 16px;
     font-size: 16px;
