@@ -87,20 +87,21 @@
   background: linear-gradient(to bottom, #232526, #414345);
   background: #d5c2b4;
   color: #fff;
+  
 
 }
 
 /* 로그인 박스 */
 .login-box {
-  background-color: rgba(0, 0, 0, 0.8); /* 투명도 있는 검은 박스 */
   padding: 40px;
-  border-radius: 8px;
-  border: none;
+  border-radius: 20px;
+
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
   background: linear-gradient(to bottom, #d5c2b4, #f0e5dd);
+  border: 1px ridge #d5c2b4
 }
 
 /* 제목 스타일 */
@@ -134,7 +135,7 @@ input {
 /* 버튼 스타일 */
 .login-button {
   width: 100%;
-  background-color: #9f8d80; /* 넷플릭스 레드 */
+  background-color: #9f8d80;
   color: #fff;
   padding: 12px;
   font-size: 16px;

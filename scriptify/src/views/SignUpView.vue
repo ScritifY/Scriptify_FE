@@ -20,7 +20,8 @@
   
           <div class="input-group">
             <label for="confirm-password">비밀번호 확인</label>
-            <input type="password" v-model="confirmPassword" id="confirm-password" placeholder="비밀번호를 다시 입력해주세요." required />
+            <input type="password" v-model="confirmPassword" id="confirm-password" placeholder="비밀번호를 다시 입력해주세요." required @input="validatePassword" />
+            <p v-if= "!isPasswordValid" class="p-password-diff">입력 비밀번호와 확인 비밀번호가 달라요!</p>
           </div>
   
           <div class="input-group">
@@ -45,12 +46,21 @@
   const confirmPassword = ref('');
   const phone = ref('');
   const birthdate = ref('');
-  
+  const isPasswordValid = ref(false)
+
+  const validatePassword = () => {
+  isPasswordValid.value = password.value === confirmPassword.value;
+};
+  // const handleSignUp = () => {
+  //   if (password.value !== confirmPassword.value) {
+  //     alert('패스워드가 일치해야 회원가입을 진행할 수 있어요.');
+  //     return;
+  //   }
   const handleSignUp = () => {
-    if (password.value !== confirmPassword.value) {
-      alert('Passwords do not match!');
-      return;
-    }
+  if (!isPasswordValid.value) {
+    alert('패스워드가 일치해야 회원가입을 진행할 수 있어요.');
+    return;
+  }
   
     const newUser = {
       name: name.value,
@@ -71,11 +81,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to bottom, #232526, #414345);
-
-
-
-
+    background: #d5c2b4;
   }
   
   .signup-form {
@@ -85,7 +91,9 @@
     width: 400px;
     color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(to bottom, #232526, #414345);
+    background: linear-gradient(to bottom, #d5c2b4, #f0e5dd);
+    border: 1px ridge #d5c2b4
+    
   }
   
   .signup-form h2 {
@@ -100,7 +108,7 @@
   
   .input-group label {
     font-size: 14px;
-    color: #bbb;
+    /* color: #bbb; */
     display: block;
     margin-bottom: 8px;
   }
@@ -111,8 +119,8 @@
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #444;
-    background-color: #222;
-    color: #fff;
+    /* background-color: #222; */
+    color: black;
   }
   
   .input-group input:focus {
@@ -124,7 +132,7 @@
     width: 100%;
     padding: 14px;
     font-size: 18px;
-    background-color: #e50914;
+    background-color: #9f8d80;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -133,7 +141,7 @@
   }
   
   .submit-btn:hover {
-    background-color: #f40612;
+    background-color: #7a695d; 
   }
   
   </style>
