@@ -1,7 +1,9 @@
 <template>
     <div class="home-view">
 
-    <button @click="handleButtonClick">Start Chat</button>
+    <button class = "btn-start" @click="handleButtonClick">
+      <font-awesome-icon class = "fa-2x"  :icon="['fas', 'pen-to-square']" />
+    </button>
 
     <InputComponent
       v-if="showInput && isFirst"
@@ -25,7 +27,7 @@
   import InputComponent from '@/components/chat/InputComponent.vue';
   import BubbleChatComponent from '@/components/chat/BubbleChatComponent.vue';
   import SecondInputComponent from '@/components/chat/SecondInputComponent.vue';
-
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   
   // 채팅 메시지들
   const chatMessages = ref([]);
@@ -81,21 +83,26 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    background-color: #d5c2b4 ;
   }
   
   button {
     margin-bottom: 20px;
+    cursor: pointer;
   }
   
   .chat-container {
     width: 100%;
-    max-width: 600px;
-    /* height: 500px; */
-    overflow-y: scroll;
+    max-width: 800px;
+    /* overflow-y: scroll;
     border: 1px solid #ccc;
     padding: 10px;
-    margin-top: 20px;
-    background-color:beige;
+    margin-top: 20px; */
+    background-color: #f0e5dd;
+    
+  }
+  .btn-start{
+    background-color: #d5c2b4 ;
   }
   </style>
   

@@ -1,7 +1,7 @@
 <template>
     <div class="genre-choice">
       <div class="grid">
-        <button
+        <button class="genre-btn"
           v-for="(genre, index) in genres"
           :key="index"
           @click="selectGenre(genre.value)"
@@ -41,6 +41,7 @@
     justify-content: center;
     align-items: center;
     margin: 20px 0;
+    
   }
   
   .grid {
@@ -60,6 +61,9 @@
   
   button:hover {
     background-color: #e0e0e0;
+  }
+  .genre-btn{
+    background-color: #9f8d80;
   }
   </style>
   

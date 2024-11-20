@@ -1,17 +1,19 @@
 <template>
     <div class="detail-container">
       <textarea 
+
         v-model="detailInput" 
         placeholder="세부정보를 입력하세요..." 
         rows="5"
       ></textarea>
-      <button @click="sendDetail">전송</button>
+      <button class="btn" @click="sendDetail" >
+        <font-awesome-icon class = "fa-2x" :icon="['far', 'paper-plane']" /></button>
     </div>
   </template>
   
   <script setup>
   import { ref } from 'vue';
-  
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   // 사용자 입력 데이터를 저장
   const detailInput = ref('');
   const emit = defineEmits(['send-detail']);
@@ -31,34 +33,38 @@
   
   <style scoped>
   .detail-container {
+    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    /* padding: 10px; */
+    background-color: #d5c2b4;
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
   }
   
   textarea {
-    width: 100%;
-    font-size: 14px;
+    /* width: 100%; */
+    font-size: 15px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #ebb687;
+    color: white;
   }
   
   button {
     align-self: flex-end;
-    padding: 8px 16px;
+    padding: 4px 16px;
     font-size: 16px;
     cursor: pointer;
     border: 1px solid #ccc;
-    background-color: #f5f5f5;
+    background-color: #ebb687;
   }
   
   button:hover {
     background-color: #e0e0e0;
   }
+  
   </style>
   

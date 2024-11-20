@@ -8,19 +8,22 @@
     <!-- <input type="text" v-model="genre" placeholder="Genre" /> -->
     <div class="genre-container">
       <!-- <input type="text" v-model="genre" placeholder="Genre" readonly /> -->
-      <button class="btn-genre" @click="toggleGenreChoice">장르도 골라볼까요?</button>
+      <button class="btn-genre" @click="toggleGenreChoice">장르도 골라주세요!</button>
     </div>
      <!-- GenreChoiceComponent -->
      
      <GenreChoiceComponent v-if="showGenreChoice" @select-genre="setGenre" />
-    <button @click="sendMessage">Send</button>
+    <button class="btn-send-message" @click="sendMessage">
+      <font-awesome-icon class = "fa-2x" :icon="['fas', 'pen']" />
+    </button>
+  
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import GenreChoiceComponent from './GenreChoiceComponent.vue';
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 const time = ref('');
 const space = ref('');
 const genre = ref('');
@@ -56,44 +59,73 @@ const sendMessage = () => {
 </script>
 
 <style scoped>
+input {
+  margin: 7px;
+  padding: 5px;
+  width: 100%;
+  max-width: 300px;
+}
 .input-container {
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  border: 3px solid black;
-  background-color: #414345;
+  padding: 15px;
+  border: 3px double #f0e5dd;
+  /* border: 3px ridge #f0e5dd; */
+  background-color: #d5c2b4 ;
+  font-size: 1rem;
 }
 .input-box{
+
   border-right: none;
   border-left: none;
   border-top: none;
   width: 220px;
   height: 30px;
-  border-bottom: 3px solid black;
+  /* border-bottom: 3px solid black; */
   font-size: 1rem;
-
+  border: 2px ridge #eea57b;
+  color: #d59b69;
+  background-color: #f7e5d5;
 }
-input {
-  margin: 10px;
-  padding: 5px;
-  width: 100%;
-  max-width: 300px;
+.genre-container{
+  width: 236px;
+  height: 46px;
+  /* border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 3px solid black; */
+  font-size: 1rem;
 }
-
+.btn-genre{
+  width: 236px;
+  height: 40px;
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+  border: 2px ridge #eea57b;
+  background-color: #f7e5d5;
+  color: #9b9b9b;
+}
 button {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #007bff;
+  margin-top: 5px;
+  padding: 5px;
   color: white;
   border: none;
   cursor: pointer;
 }
-.btn-genre{
-  color: #fff;
-  background-color: #222;
-  padding: 17px 60px;
-  margin: 0 auto;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+.btn-send-message{
+  width: 50px;
+  /* height: 45px; */
+  margin-top: 20px;
+  background-color: #414345;
+  background-color: #f7e5d5;
+  border-radius: 10px;
 }
+.pencil{
+
+
+}
+
 </style>
