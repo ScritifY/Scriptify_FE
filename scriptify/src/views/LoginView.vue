@@ -19,7 +19,7 @@
         <button type="submit" class="login-button">로그인</button>
     </form>
     <div class="login-footer">
-        <p>Scripify가 처음이신가요? <RouterLink to="/signup" class="signup-link">회원가입</RouterLink></p>
+        <p class="p-guide">Scripify가 처음이신가요? <RouterLink to="/signup" class="signup-link">회원가입</RouterLink></p>
     </div>
     </div>
 </div>
@@ -85,7 +85,7 @@
   align-items: center;
   height: 100vh;
   background: linear-gradient(to bottom, #232526, #414345);
-  background: #232526;
+  background: #d5c2b4;
   color: #fff;
 
 }
@@ -100,7 +100,7 @@
   max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  background: linear-gradient(to bottom, #232526, #414345);
+  background: linear-gradient(to bottom, #d5c2b4, #f0e5dd);
 }
 
 /* 제목 스타일 */
@@ -134,7 +134,7 @@ input {
 /* 버튼 스타일 */
 .login-button {
   width: 100%;
-  background-color: #e50914; /* 넷플릭스 레드 */
+  background-color: #9f8d80; /* 넷플릭스 레드 */
   color: #fff;
   padding: 12px;
   font-size: 16px;
@@ -146,7 +146,7 @@ input {
 }
 
 .login-button:hover {
-  background-color: #f6121d; /* 더 밝은 빨간색 */
+  background-color: #7a695d; 
 }
 
 /* 푸터 */
@@ -156,11 +156,17 @@ input {
 }
 
 .signup-link {
-  color: #e50914;
+  color: #8d4925;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .signup-link:hover {
   text-decoration: underline;
+}
+.p-guide{
+  color: #7a695d; 
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>
