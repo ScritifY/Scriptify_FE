@@ -26,12 +26,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background:beige;
+    background:white;
     padding: 8px 20px;
     font-family: impact ;
     color: black;
     font-size: 20px;
-    
+    height: 40px;
 }
 .navbar_list {
     display: flex;
