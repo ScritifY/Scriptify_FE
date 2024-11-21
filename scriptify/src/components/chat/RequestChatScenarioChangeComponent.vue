@@ -6,7 +6,7 @@
         placeholder="시나리오를 작성해주세요!" 
         rows="5"
       ></textarea>
-      <button class="btn" @click="changeScenario" >
+      <button class="btn" @click=handleScenarioChange>
         <font-awesome-icon class = "fa-2x" :icon="['far', 'paper-plane']" /></button>
     </div>
   </template>
@@ -16,16 +16,16 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   // 사용자 입력 데이터를 저장
   const detailInput = ref('');
-  const emit = defineEmits(['handle-change-scenario']);
+  const emit = defineEmits(['handleScenarioChange']);
   
   // 전송 버튼 클릭 시 입력 데이터를 부모로 전달
-  const handleScenario = () => {
+  const handleScenarioChange = () => {
     if (!detailInput.value.trim()) {
       alert('내용을 입력해주세요.');
       return;
     }
     // 부모 컴포넌트로 데이터 전달
-    emit('handle-change-scenario', detailInput.value);
+    emit('handleScenarioChange', detailInput.value);
     detailInput.value = ''; // 입력란 초기화
   };
   
