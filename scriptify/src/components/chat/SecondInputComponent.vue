@@ -3,11 +3,11 @@
     <!-- 버튼 3개 -->
     <button @click="$emit('handle-line')">대사를 추가하고 싶으신가요?</button>
     <button @click="showInput = true">시나리오를 수정하고 싶으신가요?</button>
-    <button @click="$emit('handle-detail')">사건의 세부정보가 필요하신가요?</button>
+    <button @click=handleScenarioChange>사건의 세부정보가 필요하신가요?</button>
     <!-- DetailComponent를 동적으로 렌더링 -->
     <RequestChatScenarioChangeComponent 
       v-if="showInput" 
-      @handle-change-scenario="$emit('handle-change-scenario', $event)" 
+      @handle-scenario-change="$emit('handle-scenario-change', $event)" 
     />
   </div>
 </template>
@@ -17,6 +17,11 @@ import { ref } from 'vue';
 import RequestChatScenarioChangeComponent from './RequestChatScenarioChangeComponent.vue';
 
 const showInput = ref(false);
+const emit = defineEmits();
+
+const handleScenarioChange = (input) =>{
+  emit('handleScenarioChange', input)
+}
 </script>
 
   

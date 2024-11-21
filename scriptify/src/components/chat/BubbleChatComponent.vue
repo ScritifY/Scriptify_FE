@@ -32,6 +32,16 @@
         :detail="detail"
         />
     </div>
+    <div v-for="scenario in newScenarios" :key="scenario.id">
+      <RequestChatScenarioChange 
+        v-if="scenario.type === 'scenario-change-request'"
+        :scenario-request = "scenario"
+      />
+      <ResponseChatScenarioChange
+        v-else-if="scenario.type === 'revise'" 
+        :scenario="scenario"
+        />
+    </div>
 
   </div>
 </template>
@@ -44,6 +54,9 @@ import ResponseChatLineComponent from './ResponseChatLineComponent.vue';
 import RequestChatLineComponent from './RequestChatLineComponent.vue';
 import RequestChatDetailComponent from './RequestChatDetailComponent.vue';
 import ResponseChatDetailComponent from './ResponseChatDetailComponent.vue';
+
+import RequestChatScenarioChange from './RequestChatScenarioChange.vue';
+import ResponseChatScenarioChange from './ResponseChatScenarioChange.vue';
 
 const props = defineProps({
   messages: Array,
