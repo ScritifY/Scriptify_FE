@@ -11,6 +11,22 @@
         :message="message"
       />
     </div>
+    <div v-for="line in lines" :key="line.id">
+      <RequestChatLineComponent 
+        v-if="line.type === 'line-request'"
+        :line-request = "line"
+      />
+      <ResponseChatLineComponent
+        v-else-if="line.type === 'line'" 
+        :lines="line"
+        />
+    </div>
+    <!-- <div v-for="line in lines" :key="line.id">
+      <ResponseChatLineComponent
+        v-if="line.type === 'line'" 
+        :lines="line"
+      />
+    </div> -->
   </div>
 </template>
 
@@ -18,9 +34,12 @@
 import { computed } from 'vue';
 import RequestChatComponent from './RequestChatComponent.vue';
 import ResponseChatComponent from './ResponseChatComponent.vue';
+import ResponseChatLineComponent from './ResponseChatLineComponent.vue';
+import RequestChatLineComponent from './RequestChatLineComponent.vue';
 
 const props = defineProps({
   messages: Array,
+  lines: Array
 });
 
 const requestMessages = computed(() => {
