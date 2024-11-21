@@ -2,22 +2,21 @@
   <div class="second-input-container">
     <!-- 버튼 3개 -->
     <button @click="$emit('handle-line')">대사를 추가하고 싶으신가요?</button>
-    <button @click="$emit('handle-scenario-change')">시나리오를 수정하고 싶으신가요?</button>
-    <button @click="showDetailInput = true">사건의 세부정보가 필요하신가요?</button>
-
+    <button @click="showInput = true">시나리오를 수정하고 싶으신가요?</button>
+    <button @click="$emit('handle-detail')">사건의 세부정보가 필요하신가요?</button>
     <!-- DetailComponent를 동적으로 렌더링 -->
-    <DetailComponent 
-      v-if="showDetailInput" 
-      @send-detail="$emit('send-detail', $event)" 
+    <RequestChatScenarioChangeComponent 
+      v-if="showInput" 
+      @handle-change-scenario="$emit('handle-change-scenario', $event)" 
     />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import DetailComponent from './DetailComponent.vue';
+import RequestChatScenarioChangeComponent from './RequestChatScenarioChangeComponent.vue';
 
-const showDetailInput = ref(false);
+const showInput = ref(false);
 </script>
 
   

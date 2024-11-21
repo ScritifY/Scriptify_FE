@@ -13,10 +13,10 @@
       v-else-if="showInput && !isFirst"
       @handle-line="handleLine"
       @handle-scenario-change="handleScenarioChange"
-      @send-detail="handleDetail"
+      @handle-detail="handleDetail"
     />
       <div class="chat-container">
-        <BubbleChatComponent :messages="messages" :lines="lines"/>
+        <BubbleChatComponent :messages="messages" :lines="lines" :details="details"/>
       </div>
     </div>
 </template>
@@ -36,6 +36,7 @@
   const cnt = ref(0)
   const isFirst = ref(true)
   const lines = ref([])
+  const details = ref([])
 
   // 메시지를 처리하는 함수
   const handleButtonClick = () => {
@@ -189,8 +190,20 @@
 
   }
   const handleDetail = (input) => {
-    console.log(input)
+    console.log('디테일')
     showInput.value = false; // 컴포넌트 숨김
+    const response = {
+      statusCode: 201,
+      type: "detail",
+      data: {
+        content:
+          "아서와 오스카는 레자의 집에 방문하여 실종에 대한 단서를 찾아 나선다. 그곳에는 레자의 친구인 앤(28, 여성, 외향적이고 친절, 밝은 갈색 눈)을 만난다. 그녀는 레자가 최근에 수상한 인물들과 만나고 있었다고 털어놓고, 남자친구가 있다는 사실까지 얘기한다. 아서와 오스카는 레자의 남자친구를 찾아서 그와의 연결고리에 주목하기 시작한다. 이 과정에서 아서의 호기심이 커지며 사건의 복잡한 면이 드러나기 시작한다.",
+      },
+    };
+    details.value.push(
+      { id: response.id, type: 'detail-request'},
+      { id: response.id, type: response.type, response: response}
+    )
 
   }
   </script>
