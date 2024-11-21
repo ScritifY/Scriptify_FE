@@ -3,10 +3,10 @@
       <textarea 
 
         v-model="detailInput" 
-        placeholder="세부정보를 입력하세요..." 
+        placeholder="시나리오를 작성해주세요!" 
         rows="5"
       ></textarea>
-      <button class="btn" @click="sendDetail" >
+      <button class="btn" @click="changeScenario" >
         <font-awesome-icon class = "fa-2x" :icon="['far', 'paper-plane']" /></button>
     </div>
   </template>
@@ -16,16 +16,16 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   // 사용자 입력 데이터를 저장
   const detailInput = ref('');
-  const emit = defineEmits(['send-detail']);
+  const emit = defineEmits(['handle-change-scenario']);
   
   // 전송 버튼 클릭 시 입력 데이터를 부모로 전달
-  const sendDetail = () => {
+  const handleScenario = () => {
     if (!detailInput.value.trim()) {
       alert('내용을 입력해주세요.');
       return;
     }
     // 부모 컴포넌트로 데이터 전달
-    emit('send-detail', detailInput.value);
+    emit('handle-change-scenario', detailInput.value);
     detailInput.value = ''; // 입력란 초기화
   };
   
