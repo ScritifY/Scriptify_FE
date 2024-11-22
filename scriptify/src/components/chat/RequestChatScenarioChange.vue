@@ -2,7 +2,7 @@
 <template>
     <div class="request-line-chat">
       <div class="chat-box">
-       {{ scenario.content }}
+        {{scenario.content}}
       </div>
     </div>
   </template>
