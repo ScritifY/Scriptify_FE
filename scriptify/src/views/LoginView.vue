@@ -26,56 +26,40 @@
 </template>
 
 <script setup>
-    import { useRouter } from 'vue-router';
     import { ref } from 'vue'
     import axios from 'axios';
     const email = ref('')
     const password = ref('')
+    import router from '@/router';
+
+  const handleLogin = () => {
     const requestUser = {
-        email: email,
-        password: password
+        email: email.value,
+        password: password.value
     };
-    const router = useRouter()
+    console.log('오나요')
+    console.log(email.value)
+    console.log(password.value)
+    axios({
+      method: 'post',
+      url: 'http://3.39.187.9/api/v1/accounts/login/',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      data: requestUser,
+    })
+    .then((response) => {
+      console.log('로그인 성공:', response);
+      localStorage.setItem('token', response.key);
+      // 로그인 후 /home 페이지로 이동
+      router.push({ name: 'home' });
+    })
+    .catch((error) => {
+      console.log('로그인 실패', error);
+      alert('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+    });
 
-    const handleLogin = () => {
-      console.log(email.value)
-      console.log(password.value)
-      router.push(
-            {
-              path: '/'
-            }
-          )
-
-      // const url = 'https://localhost:8080/sing-up'
-
-      // axios
-      //   .post(
-      //     url,
-      //     {
-      //       email: email.value,
-      //       password:password.value
-      //     },
-      //     {
-      //       headers:{
-      //         'Content-Type': 'application/json',
-      //       },
-      //     }
-      //   )
-      //   .then((response) =>{
-      //     //jwt 토근 받아서 저장
-      //     router.push(
-      //       {
-      //         path: '/home'
-      //       }
-      //     )
-
-          
-      //   })
-      //   .catch((error) => {
-      //     console.log('회원가입 실패')
-      //   })
-
-    }
+  }
 </script>
 
 <style scoped>
