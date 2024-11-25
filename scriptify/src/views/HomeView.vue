@@ -274,11 +274,10 @@
         ],
       },
     };
-    newScenario.value.push(
+    newScenarios.value.push(
       { id: 1, type: 'scenario-change-request', content: input},
-      { id: response.id, type: 'response', response: response}
+      { id: response.id, type: response.type, response: response}
     )
-    
   }
   const handleDetail = (input) => {
     console.log('디테일')

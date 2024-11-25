@@ -1,6 +1,5 @@
 <template>
     <div class="response-chat">
-      <!-- Scenario 표시 -->
       <div class="scenario-section">
         <h2>발단</h2>
         <p><strong>Scenery:</strong> {{ scenario.response.data.scenario.opening.scenery }}</p>
@@ -23,7 +22,6 @@
         <p><strong>Content:</strong> {{ scenario.response.data.scenario.conclusion.content }}</p>
       </div>
   
-      <!-- Characters 배열 표시 -->
       <div class="characters-section">
         <h2 class="character-title">등장인물</h2>
         <div v-for="character in scenario.response.data.characters" :key="character.id" class="character">
@@ -32,7 +30,6 @@
           <p><strong>성별:</strong> {{ character.gender }}</p>
           <p><strong>외모:</strong> {{ character.appearance }}</p>
           <p><strong>특징:</strong> {{ character.personality }}</p>
-          
         </div>
       </div>
     </div>

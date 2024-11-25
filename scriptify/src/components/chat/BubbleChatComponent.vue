@@ -35,10 +35,10 @@
     <div v-for="scenario in newScenarios" :key="scenario.id">
       <RequestChatScenarioChange 
         v-if="scenario.type === 'scenario-change-request'"
-        :scenario-request = "scenario"
+        :scenario="scenario"
       />
       <ResponseChatScenarioChange
-        v-else-if="scenario.type === 'revise'" 
+        v-else-if="scenario.type ==='revise'" 
         :scenario="scenario"
         />
     </div>
@@ -61,7 +61,8 @@ import ResponseChatScenarioChange from './ResponseChatScenarioChange.vue';
 const props = defineProps({
   messages: Array,
   lines: Array,
-  details: Array
+  details: Array,
+  newScenarios: Array
 });
 
 const requestMessages = computed(() => {
