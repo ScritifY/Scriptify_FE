@@ -28,9 +28,6 @@
             <label for="phone">핸드폰 번호</label>
             <input type="tel" v-model="phone" id="phone" placeholder="핸드폰 번호를 입력해주세요." required />
           </div>
-  
-
-  
           <button type="submit" class="submit-btn">회원가입</button>
         </form>
       </div>
@@ -39,23 +36,19 @@
   
   <script setup>
   import { ref } from 'vue';
-  
+  import axios from 'axios';
+  import router from '@/router';
   const name = ref('');
   const email = ref('');
   const password = ref('');
   const confirmPassword = ref('');
   const phone = ref('');
-  const birthdate = ref('');
   const isPasswordValid = ref(false)
 
   const validatePassword = () => {
   isPasswordValid.value = password.value === confirmPassword.value;
 };
-  // const handleSignUp = () => {
-  //   if (password.value !== confirmPassword.value) {
-  //     alert('패스워드가 일치해야 회원가입을 진행할 수 있어요.');
-  //     return;
-  //   }
+
   const handleSignUp = () => {
   if (!isPasswordValid.value) {
     alert('패스워드가 일치해야 회원가입을 진행할 수 있어요.');
@@ -67,11 +60,30 @@
       email: email.value,
       password: password.value,
       phone: phone.value,
-      birthdate: birthdate.value,
     };
   
     // 여기서 백엔드 API 호출
     console.log('User data:', newUser);
+
+    axios({
+      method: 'post',
+      url: 'http://3.39.187.9/api/v1/accounts/signup/',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      data: newUser,
+    })
+    .then((response) => {
+      console.log('회원가입 성공:', response);
+
+      // 로그인 후 /home 페이지로 이동
+      router.push({ name: 'login' });
+    })
+    .catch((error) => {
+      console.log('로그인 실패', error);
+      alert('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+    });
+
   };
   </script>
   
