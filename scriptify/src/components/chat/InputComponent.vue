@@ -45,7 +45,7 @@ const sendMessage = () => {
   const input = {
     time: time.value,
     space: space.value,
-    genre: genre.value
+    genreId: genre.value
   };
 
   // 메시지 전송 EMIT을 정의 
