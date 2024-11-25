@@ -8,7 +8,13 @@
                 <li>
                     <RouterLink :to="{ name: 'review' }" class="router_review">Review</RouterLink>
                 </li>
-                <li>
+                <li v-if="authStore.isLoggedIn">
+                    <button @click="logout" class="router_logout">Logout</button>
+                </li>
+                <!-- <li v-if="isLoggedIn">
+                    <RouterLink @click="logout" class="router_logout">Logout</RouterLink>
+                </li> -->
+                <li v-else>
                     <RouterLink :to="{ name: 'login' }" class="router_login">login</RouterLink>
                     <RouterLink :to="{ name: 'signup' }" class="router_sign_up">sign up</RouterLink>
                 </li>
@@ -18,7 +24,21 @@
 </template>
 
 <script setup>
-    import { RouterLink, } from 'vue-router'
+    import { RouterLink, useRouter } from 'vue-router'
+    import { useAuthStore } from '@/stores/auth';
+    import { onMounted } from 'vue';
+
+    const router = useRouter();
+    const authStore = useAuthStore();
+
+    const logout = () => {
+        authStore.logout();
+        router.push({ name: 'home' })
+    }
+
+    onMounted(() => {
+      authStore.checkLoginStatus();  // localStorage에서 토큰을 확인하고 로그인 상태 업데이트
+    });
 </script>
 
 <style scoped>
@@ -55,5 +75,15 @@
 .router_sign_up{
     text-decoration: none;
     color: black;
+}
+.router_log{
+    text-decoration: none;
+    color: black;
+}
+.router_logout{
+    text-decoration: none;
+    color: black;
+    border: none;
+    background-color: inherit;
 }
 </style>

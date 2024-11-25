@@ -26,39 +26,23 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
-    import axios from 'axios';
-    const email = ref('')
-    const password = ref('')
-    import router from '@/router';
+  import { ref } from 'vue'
+  import { useAuthStore } from '@/stores/auth';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
+  const authStore = useAuthStore();
+  const email = ref('')
+  const password = ref('')
 
   const handleLogin = () => {
     const requestUser = {
         email: email.value,
         password: password.value
     };
-    console.log('오나요')
-    console.log(email.value)
-    console.log(password.value)
-    axios({
-      method: 'post',
-      url: 'http://3.39.187.9/api/v1/accounts/login/',
-      headers:{
-        'Content-Type': 'application/json',
-      },
-      data: requestUser,
-    })
-    .then((response) => {
-      console.log('로그인 성공:', response);
-      localStorage.setItem('token', response.key);
-      // 로그인 후 /home 페이지로 이동
-      router.push({ name: 'home' });
-    })
-    .catch((error) => {
-      console.log('로그인 실패', error);
-      alert('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
-    });
 
+    authStore.login(requestUser);
+    router.push({ name: 'home' })
   }
 </script>
 

@@ -20,7 +20,7 @@
   
           <div class="input-group">
             <label for="confirm-password">비밀번호 확인</label>
-            <input type="password" v-model="confirmPassword" id="confirm-password" placeholder="비밀번호를 다시 입력해주세요." required @input="validatePassword" />
+            <input type="password" v-model="confirmPassword" id="confirm-password" placeholder="비밀번호를 다시 입력해주세요." required />
             <p v-if= "!isPasswordValid" class="p-password-diff">입력 비밀번호와 확인 비밀번호가 달라요!</p>
           </div>
   
@@ -35,25 +35,26 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import axios from 'axios';
-  import router from '@/router';
+  import { useRouter } from 'vue-router';
+
   const name = ref('');
   const email = ref('');
   const password = ref('');
   const confirmPassword = ref('');
   const phone = ref('');
-  const isPasswordValid = ref(false)
+  const router = useRouter();
 
-  const validatePassword = () => {
-  isPasswordValid.value = password.value === confirmPassword.value;
-};
+  const isPasswordValid = computed(() => {
+    return password.value === confirmPassword.value;
+  })
 
   const handleSignUp = () => {
-  if (!isPasswordValid.value) {
-    alert('패스워드가 일치해야 회원가입을 진행할 수 있어요.');
-    return;
-  }
+    if (!isPasswordValid.value) {
+      alert('패스워드가 일치해야 회원가입을 진행할 수 있어요.');
+      return;
+    }
   
     const newUser = {
       name: name.value,
@@ -61,9 +62,6 @@
       password: password.value,
       phone: phone.value,
     };
-  
-    // 여기서 백엔드 API 호출
-    console.log('User data:', newUser);
 
     axios({
       method: 'post',
