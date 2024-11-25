@@ -1,32 +1,41 @@
 <template>
   <div class="response-chat">
     <!-- Scenario 표시 -->
-    <div class="scenario-section">
+    <div v-if="props.message.messageType === 'first' || props.message.messageType === 'revise'" class="scenario-section">
       <h2>발단</h2>
-      <p><strong>Scenery:</strong> {{ message.response.data.scenario.opening.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.response.data.scenario.opening.content }}</p>
+      <p><strong>Scenery:</strong> {{ message.scenario.opening.scenery }}</p>
+      <p><strong>Content:</strong> {{ message.scenario.opening.content }}</p>
       <br>
       <h2>전개</h2>
-      <p><strong>Scenery:</strong> {{ message.response.data.scenario.prologue.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.response.data.scenario.prologue.content }}</p>
+      <p><strong>Scenery:</strong> {{ message.scenario.prologue.scenery }}</p>
+      <p><strong>Content:</strong> {{ message.scenario.prologue.content }}</p>
       <br>
       <h2>위기</h2>
-      <p><strong>Scenery:</strong> {{ message.response.data.scenario.conflict.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.response.data.scenario.conflict.content }}</p>
+      <p><strong>Scenery:</strong> {{ message.scenario.conflict.scenery }}</p>
+      <p><strong>Content:</strong> {{ message.scenario.conflict.content }}</p>
       <br>
       <h2>절정</h2>
-      <p><strong>Scenery:</strong> {{ message.response.data.scenario.climax.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.response.data.scenario.climax.content }}</p>
+      <p><strong>Scenery:</strong> {{ message.scenario.climax.scenery }}</p>
+      <p><strong>Content:</strong> {{ message.scenario.climax.content }}</p>
       <br>
       <h2>결말</h2>
-      <p><strong>Scenery:</strong> {{ message.response.data.scenario.conclusion.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.response.data.scenario.conclusion.content }}</p>
+      <p><strong>Scenery:</strong> {{ message.scenario.conclusion.scenery }}</p>
+      <p><strong>Content:</strong> {{ message.scenario.conclusion.content }}</p>
     </div>
+    <div v-else-if="props.message.messageType === 'line'">
+      <div v-for="line in message.lines" :key="line.id">
+        <p><strong>{{ line.name }}:</strong> {{ line.content }}</p>
+      </div>
+    </div>
+    <div v-else-if="props.message.messageType === 'detail'">
+      {{ message.content }}
+    </div>
+    <div v-else>메시지 타입이 잘못되었습니다</div>
 
     <!-- Characters 배열 표시 -->
-    <div class="characters-section">
+    <div v-if="props.message.messageType === 'first' || props.message.messageType === 'revise'" class="characters-section">
       <h2 class="character-title">등장인물</h2>
-      <div v-for="character in message.response.data.characters" :key="character.id" class="character">
+      <div v-for="character in message.characters" :key="character.id" class="character">
         <p><strong>이름:</strong> {{ character.name }}</p>
         <p><strong>나이:</strong> {{ character.age }}</p>
         <p><strong>성별:</strong> {{ character.gender }}</p>
@@ -39,9 +48,15 @@
 </template>
 
 <script setup>
-defineProps({
+import { defineProps } from 'vue';
+
+const props = defineProps({
   message: Object,
 });
+const rawMessage = props.message.data.content
+const message = JSON.parse(rawMessage)
+
+console.log('응답데스네', props.message)
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <!-- ResponseChatLineComponent.vue -->
 <template>
     <div class="detail-chat">
-      사건의 묘사:
+      사건의 세부 정보:
       <br>
       <div class="chat-line">
         {{ detail.response.data.content }}

@@ -16,15 +16,15 @@
   import { defineEmits } from 'vue';
   
   const genres = [
-    { value: 'action', label: '액션' },
-    { value: 'animation', label: '애니메이션' },
-    { value: 'comedy', label: '코미디' },
-    { value: 'crime', label: '범죄' },
-    { value: 'fantasy', label: '판타지' },
-    { value: 'horror', label: '공포' },
-    { value: 'romance', label: '로맨스' },
-    { value: 'sf', label: '공상 과학' },
-    { value: 'thriller', label: '스릴러' },
+    { value: 1, label: '액션' },
+    { value: 2, label: '애니메이션' },
+    { value: 3, label: '코미디' },
+    { value: 4, label: '범죄' },
+    { value: 5, label: '판타지' },
+    { value: 6, label: '공포' },
+    { value: 7, label: '로맨스' },
+    { value: 8, label: '공상 과학' },
+    { value: 9, label: '스릴러' },
   ];
   
   const emit = defineEmits(['select-genre']);

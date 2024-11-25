@@ -4,11 +4,6 @@
     <button @click="$emit('handle-line')">대사를 추가하고 싶으신가요?</button>
     <button @click="showInput = true">시나리오를 수정하고 싶으신가요?</button>
     <button @click="$emit('handle-detail')">사건의 세부정보가 필요하신가요?</button>
-    <!-- DetailComponent를 동적으로 렌더링 -->
-    <!-- <RequestChatScenarioChangeComponent 
-      v-if="showInput" 
-      @handle-scenario-change="$emit('handle-scenario-change', $event)" 
-    /> -->
         <RequestChatScenarioChangeComponent 
       v-if="showInput" 
       @handle-scenario-change="callParent"
