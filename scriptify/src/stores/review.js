@@ -1,78 +1,85 @@
 import axios from "axios";
 import { defineStore } from "pinia";
+import { useAuthStore } from "./auth";
+import { API_VERSION, BASE_URL, DOMAIN } from "@/constants/api";
 
 export const useReviewStore = defineStore("review", {
-  state: () => ({
-    token: localStorage.getItem("token") || "",
-  }),
-
   actions: {
     async createReview(request) {
+      const authStore = useAuthStore();
+
       try {
         const response = await axios({
           method: "post",
-          url: `http://3.39.187.9/api/v1/review/`,
+          url: `${BASE_URL}${API_VERSION}${DOMAIN.REVIEW}`,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${this.token}`,
+            Authorization: `Token ${authStore.token}`,
           },
-          data: request
+          data: request,
         });
-        return response.data; // 데이터를 반환
+        return response.data;
       } catch (error) {
         console.error("리뷰 생성 실패", error);
-        throw error; // 에러를 호출부로 전달
+        throw error;
       }
     },
+
     async getReviews() {
       try {
         const response = await axios({
           method: "get",
-          url: `http://3.39.187.9/api/v1/review/`,
+          url: `${BASE_URL}${API_VERSION}${DOMAIN.REVIEW}`,
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         });
-        return response.data; // 데이터를 반환
+        return response.data;
       } catch (error) {
         console.error("리뷰 생성 실패", error);
-        throw error; // 에러를 호출부로 전달
+        throw error;
       }
     },
+
     async updateReview(request) {
+      const authStore = useAuthStore();
+
       try {
         const response = await axios({
           method: "put",
-          url: `http://3.39.187.9/api/v1/review/`,
+          url: `${BASE_URL}${API_VERSION}${DOMAIN.REVIEW}`,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${this.token}`,
+            Authorization: `Token ${authStore.token}`,
           },
-          data: request
+          data: request,
         });
-        return response.data; // 데이터를 반환
+        return response.data;
       } catch (error) {
-        console.error("리뷰 생성 실패", error);
-        throw error; // 에러를 호출부로 전달
+        console.error("리뷰 수정 실패", error);
+        throw error;
       }
     },
+
     async deleteReview(request) {
+      const authStore = useAuthStore();
+
       try {
         const response = await axios({
           method: "delete",
-          url: `http://3.39.187.9/api/v1/review/`,
+          url: `${BASE_URL}${API_VERSION}${DOMAIN.REVIEW}`,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${this.token}`,
+            Authorization: `Token ${authStore.token}`,
           },
-          data: request
+          data: request,
         });
-        return response.data; // 데이터를 반환
+        return response.data;
       } catch (error) {
-        console.error("리뷰 생성 실패", error);
-        throw error; // 에러를 호출부로 전달
+        console.error("리뷰 삭제 실패", error);
+        throw error;
       }
     },
   },
-  persist: true, // 상태를 로컬 스토리지에 저장하도록 설정
+  persist: true,
 });
