@@ -1,4 +1,4 @@
-export const BASE_URL = "http://3.39.187.9/";
+export const BASE_URL = process.env.VUE_APP_SERVER_URI;
 export const API_VERSION = "api/v1/";
 export const DOMAIN = {
   USER: "accounts/",
