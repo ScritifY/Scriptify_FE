@@ -9,7 +9,7 @@ export const useAuthStore = defineStore("auth", {
   }),
 
   actions: {
-    login(userInput) {
+    async login(userInput) {
       axios({
         method: "post",
         url: `${BASE_URL}${API_VERSION}${DOMAIN.USER}${END_POINT.LOGIN}`,

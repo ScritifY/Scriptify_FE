@@ -13,14 +13,14 @@
           >
         </li>
         <li v-if="authStore.token">
-          <button @click="logout" class="router_logout">Logout</button>
+          <button @click="logout" class="router_logout">SignOut</button>
         </li>
         <li v-else class="auth_container">
           <RouterLink :to="{ name: 'login' }" class="router_login"
-            >login</RouterLink
+            >SignIn</RouterLink
           >
           <RouterLink :to="{ name: 'signup' }" class="router_sign_up"
-            >sign up</RouterLink
+            >SignUp</RouterLink
           >
         </li>
       </ul>
@@ -46,50 +46,64 @@ const logout = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
-  padding: 8px 20px;
-  font-family: impact;
-  color: black;
-  font-size: 20px;
-  height: 40px;
+  background: #121212; /* 어두운 배경 */
+  padding: 16px 40px; /* 충분한 여백 */
+  font-family: "Arial", sans-serif; /* 간결한 폰트 */
+  color: #ffffff;
+  font-size: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 네비게이션 바에 깊이감 추가 */
 }
+
+.navbar_home {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.router_home {
+  text-decoration: none;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.router_home:hover {
+  color: #346eeb;
+}
+
 .navbar_list {
   display: flex;
   align-items: center;
   list-style: none;
-  padding-left: 15px;
-  gap: 16px;
+  margin: 0;
+  padding: 0;
+  gap: 20px; /* 링크 간 간격 */
 }
-.router_home {
-  text-decoration: none;
-  color: black;
-  font-size: 25px;
-}
-.router_review {
-  text-decoration: none;
-  color: black;
-}
-.router_login {
-  text-decoration: none;
-  color: black;
-}
-.router_sign_up {
-  text-decoration: none;
-  color: black;
-}
-.router_log {
-  text-decoration: none;
-  color: black;
-}
+
+.router_review,
+.router_login,
+.router_sign_up,
 .router_logout {
   text-decoration: none;
-  color: black;
-  font-size: 20px;
-  border: none;
-  background-color: inherit;
+  color: #ffffff;
+  font-size: 18px;
+  transition: color 0.3s ease;
+  padding: 0;
 }
+
+.router_review:hover,
+.router_login:hover,
+.router_sign_up:hover,
+.router_logout:hover {
+  color: #346eeb; /* 호버 시 강조색 */
+}
+
+.router_logout {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .auth_container {
   display: flex;
-  gap: 16px;
+  gap: 20px;
 }
 </style>

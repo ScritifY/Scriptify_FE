@@ -2,18 +2,15 @@
   <div class="detail-container">
     <textarea
       v-model="detailInput"
-      placeholder="시나리오를 작성해주세요!"
+      placeholder="개선사항을 입력해주세요!"
       rows="5"
     ></textarea>
-    <button class="btn" @click="handleScenarioChange">
-      <font-awesome-icon class="fa-2x" :icon="['far', 'paper-plane']" />
-    </button>
+    <button class="btn" @click="handleScenarioChange">요청</button>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const detailInput = ref("");
 const emit = defineEmits(["sendInput"]);
@@ -35,33 +32,39 @@ const handleScenarioChange = () => {
 
 <style scoped>
 .detail-container {
-  width: 300px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #d5c2b4;
-  border-radius: 5px;
+  background-color: #333333; /* 어두운 배경 */
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #fff;
 }
 
 textarea {
   font-size: 15px;
-  padding: 8px;
-  border: 1px solid #ccc;
+  padding: 10px;
+  border: 2px solid #555555;
   border-radius: 5px;
-  background-color: #ebb687;
-  color: white;
+  background-color: #444444;
+  color: #d5d5d5;
+  resize: none;
+  min-height: 100px;
 }
 
+/* 버튼 스타일 */
 button {
   align-self: flex-end;
-  padding: 4px 16px;
-  font-size: 16px;
+  padding: 10px;
   cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: #ebb687;
+  border: none;
+  background-color: #346eeb; /* 파란색 */
+  color: white;
+  border-radius: 8px;
 }
 
 button:hover {
-  background-color: #e0e0e0;
+  background-color: #285db3; /* 클릭 시 어두운 파란색 */
 }
 </style>
