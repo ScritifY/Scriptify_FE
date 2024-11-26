@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import InputComponent from "@/components/chat/InputComponent.vue";
 import BubbleChatComponent from "@/components/chat/BubbleChatComponent.vue";
 import SecondInputComponent from "@/components/chat/SecondInputComponent.vue";
@@ -52,6 +52,12 @@ watch(
     }
   }
 );
+
+onMounted(() => {
+  if (!authStore.token) {
+    router.push({ name: "intro" });
+  }
+});
 
 const toggleModal = () => {
   showModal.value = !showModal.value;
