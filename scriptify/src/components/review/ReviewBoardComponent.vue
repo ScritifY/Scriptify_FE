@@ -69,7 +69,7 @@ async function deleteReview(reqReviewId) {
   };
 
   try {
-    const response = await reviewStore.deleteReview(request);
+    await reviewStore.deleteReview(request);
 
     emit("delete-review", reqReviewId);
   } catch (error) {
@@ -81,7 +81,7 @@ async function updateReview(reviewDto) {
   showUpdateBox.value = false;
 
   const request = {
-    userId: userId,
+    userId: authStore.userId,
     reviewId: updateReviewId.value,
     rank: reviewDto.rank,
     content: reviewDto.content,
@@ -90,7 +90,7 @@ async function updateReview(reviewDto) {
   try {
     await reviewStore.updateReview(request);
 
-    emit("update-review", reviewDto, updateReviewId.value);
+    emit("update-review", request, updateReviewId.value);
 
     updateReviewId.value = null;
   } catch (error) {
@@ -161,6 +161,12 @@ const cancelEdit = () => {
   background-color: inherit;
   font-size: 15px;
 }
+
+.update-btn:hover,
+.delete-btn:hover {
+  cursor: pointer;
+}
+
 .fake-btn {
   color: #f9f9f9;
   background-color: inherit;

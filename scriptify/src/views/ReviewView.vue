@@ -59,16 +59,21 @@ async function addReview(request) {
   }
 }
 
-function updateReview(reviewDto, updateReviewId) {
-  const target = reviews.value.find((review) => review.id === updateReviewId);
+function updateReview(request, updateReviewId) {
+  const target = reviews.value.find(
+    (review) => review.reviewId === updateReviewId
+  );
+
   if (target) {
-    target.rank = reviewDto.rank;
-    target.content = reviewDto.content;
+    target.rank = request.rank;
+    target.content = request.content;
   }
 }
 
 function deleteReview(reviewId) {
-  const newReviews = reviews.value.filter((review) => review.id !== reviewId);
+  const newReviews = reviews.value.filter(
+    (review) => review.reviewId !== reviewId
+  );
   reviews.value = newReviews;
 }
 </script>
@@ -84,8 +89,12 @@ function deleteReview(reviewId) {
 }
 .btn-toggle {
   position: relative;
-  left: 88%; /* 수평 중앙 */
-  transform: translate(-50%, -50%); /* 정확히 중앙에 위치시킴 */
+  left: 88%;
+  transform: translate(-50%, -50%);
   background-color: #d5c2b4;
+}
+
+.btn-toggle:hover {
+  cursor: pointer;
 }
 </style>
