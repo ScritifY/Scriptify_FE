@@ -12,7 +12,7 @@
       />
     </button>
     <ReviewFormComponent v-if="showForm" @submit-review="addReview" />
-    <ReviewBoard :reviews="reviews" />
+    <ReviewBoard  :reviews="reviews" />
   </div>
 </template>
 
@@ -20,40 +20,39 @@
 import ReviewBoard from "@/components/review/ReviewBoardComponent.vue";
 import { ref } from "vue";
 import ReviewFormComponent from "@/components/review/ReviewFormComponent.vue";
+import { useReviewStore } from "@/stores/review";
+import { onMounted } from "vue";
 
-const reviews = ref([
-  { name: "홍길동", rank: 5, comment: "정말 좋았어요!" },
-  { name: "김철수", rank: 3, comment: "괜찮았지만 아쉬웠어요." },
-  { name: "이영희", rank: 0, comment: "옆집 개도 쓰겄다." },
-  { name: "홍길동", rank: 5, comment: "정말 좋았어요!" },
-  { name: "김철수", rank: 3, comment: "괜찮았지만 아쉬웠어요." },
-  { name: "이영희", rank: 0, comment: "옆집 개도 쓰겄다." },
-  { name: "홍길동", rank: 5, comment: "정말 좋았어요!" },
-  { name: "김철수", rank: 3, comment: "괜찮았지만 아쉬웠어요." },
-  { name: "이영희", rank: 0, comment: "옆집 개도 쓰겄다." },
-  { name: "홍길동", rank: 5, comment: "정말 좋았어요!" },
-  { name: "김철수", rank: 3, comment: "괜찮았지만 아쉬웠어요." },
-  { name: "이영희", rank: 0, comment: "옆집 개도 쓰겄다." },
-  { name: "홍길동", rank: 5, comment: "정말 좋았어요!" },
-  { name: "김철수", rank: 3, comment: "괜찮았지만 아쉬웠어요." },
-  { name: "이영희", rank: 0, comment: "옆집 개도 쓰겄다." },
-  { name: "홍길동", rank: 5, comment: "정말 좋았어요!" },
-  { name: "김철수", rank: 3, comment: "괜찮았지만 아쉬웠어요." },
-  { name: "이영희", rank: 0, comment: "옆집 개도 쓰겄다." },
-  { name: "홍길동", rank: 5, comment: "정말 좋았어요!" },
-  { name: "김철수", rank: 3, comment: "괜찮았지만 아쉬웠어요." },
-  { name: "이영희", rank: 0, comment: "옆집 개도 쓰겄다." },
-]);
+const reviewStore = useReviewStore()
+const reviews = ref([]);
 const showForm = ref(false);
+const userToken = localStorage.getItem('token');
+
+onMounted(async () => {
+  try {
+    const response = await reviewStore.getReviews()
+    reviews.value = response.data.reviews
+  } catch (error) {
+    console.error("Failed to fetch reviews:", error);
+  }
+});
 
 const toggleForm = () => {
   showForm.value = !showForm.value;
 };
 
-const addReview = (newReview) => {
-  reviews.value.unshift(newReview);
+async function addReview(request){
   showForm.value = false;
-  console.log(newReview);
+  if(userToken===null){
+    alert('로그인을 한 유저만 작성할 수 있어요')
+    return
+  }
+  try{
+    const response = await reviewStore.createReview(request)
+    reviews.value.unshift(response.data)
+  }catch(error){
+    console.log(error)
+  }
 };
 </script>
 

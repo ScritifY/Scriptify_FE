@@ -5,6 +5,7 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     isLoggedIn: false,
     token: localStorage.getItem("token") || "",
+    userId: localStorage.getItem("userId") || "",
   }),
 
   actions: {
@@ -21,10 +22,29 @@ export const useAuthStore = defineStore("auth", {
           localStorage.setItem("token", response.data.key);
           this.token = response.data.key;
           this.isLoggedIn = true;
+          this.getUserInfo(this.token);
         })
         .catch((error) => {
           console.log("로그인 실패", error);
           alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
+        });
+    },
+    getUserInfo(request){
+      axios({
+        method: "get",
+        url: "http://3.39.187.9/api/v1/accounts/user/",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${request}`,
+        },
+      })
+        .then((response) => {
+          localStorage.setItem("userId", parseInt(response.data.id));
+          this.userId = parseInt(response.data.id);
+        })
+        .catch((error) => {
+          console.log("로그인 실패", error);
+          alert("회원 정보 조회 실패했습니다.");
         });
     },
 
