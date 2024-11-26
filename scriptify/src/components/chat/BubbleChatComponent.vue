@@ -16,7 +16,6 @@
 <script setup>
 import RequestChatComponent from "./RequestChatComponent.vue";
 import ResponseChatComponent from "./ResponseChatComponent.vue";
-import { defineProps } from "vue";
 
 const props = defineProps({
   messages: Array,
@@ -27,6 +26,7 @@ const props = defineProps({
 .chat-container {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   padding: 10px;
   background-color: beige;
   height: 1500px;

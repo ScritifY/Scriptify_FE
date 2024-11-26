@@ -15,20 +15,21 @@
 import { ref } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-// 사용자 입력 데이터를 저장
 const detailInput = ref("");
-const emit = defineEmits(["handle-scenario-change"]);
+const emit = defineEmits(["sendInput"]);
 
-// 전송 버튼 클릭 시 입력 데이터를 부모로 전달
 const handleScenarioChange = () => {
   if (!detailInput.value.trim()) {
     alert("내용을 입력해주세요.");
     return;
   }
-  console.log(detailInput.value);
-  // 부모 컴포넌트로 데이터 전달
-  emit("handle-scenario-change", detailInput.value);
-  detailInput.value = ""; // 입력란 초기화
+
+  const request = {
+    content: detailInput.value,
+  };
+
+  emit("sendInput", request, "revise");
+  detailInput.value = "";
 };
 </script>
 

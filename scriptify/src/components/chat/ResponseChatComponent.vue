@@ -1,6 +1,5 @@
 <template>
   <div class="response-chat">
-    <!-- Scenario 표시 -->
     <div
       v-if="
         props.message.messageType === 'first' ||
@@ -9,26 +8,28 @@
       class="scenario-section"
     >
       <h2>발단</h2>
-      <p><strong>Scenery:</strong> {{ message.scenario.opening.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.scenario.opening.content }}</p>
+      <p><strong>풍경:</strong> {{ message.scenario.opening.scenery }}</p>
+      <p><strong>내용:</strong> {{ message.scenario.opening.content }}</p>
       <br />
       <h2>전개</h2>
-      <p><strong>Scenery:</strong> {{ message.scenario.prologue.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.scenario.prologue.content }}</p>
+      <p><strong>풍경:</strong> {{ message.scenario.prologue.scenery }}</p>
+      <p><strong>내용:</strong> {{ message.scenario.prologue.content }}</p>
       <br />
       <h2>위기</h2>
-      <p><strong>Scenery:</strong> {{ message.scenario.conflict.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.scenario.conflict.content }}</p>
+      <p><strong>풍경:</strong> {{ message.scenario.conflict.scenery }}</p>
+      <p><strong>내용:</strong> {{ message.scenario.conflict.content }}</p>
       <br />
       <h2>절정</h2>
-      <p><strong>Scenery:</strong> {{ message.scenario.climax.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.scenario.climax.content }}</p>
+      <p><strong>풍경:</strong> {{ message.scenario.climax.scenery }}</p>
+      <p><strong>내용:</strong> {{ message.scenario.climax.content }}</p>
       <br />
       <h2>결말</h2>
-      <p><strong>Scenery:</strong> {{ message.scenario.conclusion.scenery }}</p>
-      <p><strong>Content:</strong> {{ message.scenario.conclusion.content }}</p>
+      <p><strong>풍경:</strong> {{ message.scenario.conclusion.scenery }}</p>
+      <p><strong>내용:</strong> {{ message.scenario.conclusion.content }}</p>
     </div>
     <div v-else-if="props.message.messageType === 'line'">
+      <p>인물 별 대표 대사</p>
+      <br />
       <div v-for="line in message.lines" :key="line.id">
         <p>
           <strong>{{ line.name }}:</strong> {{ line.content }}
@@ -36,11 +37,12 @@
       </div>
     </div>
     <div v-else-if="props.message.messageType === 'detail'">
-      {{ message.content }}
+      <p>사건 세부 묘사</p>
+      <br />
+      <p>{{ message.content }}</p>
     </div>
     <div v-else>메시지 타입이 잘못되었습니다</div>
 
-    <!-- Characters 배열 표시 -->
     <div
       v-if="
         props.message.messageType === 'first' ||
@@ -65,8 +67,6 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
-
 const props = defineProps({
   message: Object,
 });

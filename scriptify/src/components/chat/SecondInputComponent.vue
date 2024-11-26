@@ -1,14 +1,13 @@
 <template>
   <div class="second-input-container">
-    <!-- 버튼 3개 -->
-    <button @click="$emit('handle-line')">대사를 추가하고 싶으신가요?</button>
-    <button @click="showInput = true">시나리오를 수정하고 싶으신가요?</button>
-    <button @click="$emit('handle-detail')">
+    <button @click="handleAddLine">대사를 추가하고 싶으신가요?</button>
+    <button @click="handleClickRevise">시나리오를 수정하고 싶으신가요?</button>
+    <button @click="handleScenarioDetail">
       사건의 세부정보가 필요하신가요?
     </button>
     <RequestChatScenarioChangeComponent
       v-if="showInput"
-      @handle-scenario-change="callParent"
+      @send-input="handleScenarioRevise"
     />
   </div>
 </template>
@@ -18,14 +17,20 @@ import { ref } from "vue";
 import RequestChatScenarioChangeComponent from "./RequestChatScenarioChangeComponent.vue";
 
 const showInput = ref(false);
-const emit = defineEmits([
-  "handle-scenario-change",
-  "handle-line",
-  "handle-detail",
-]);
-const callParent = (request) => {
-  // 부모 컴포넌트로 데이터 전달
-  emit("handle-scenario-change", request);
+const emit = defineEmits(["sendInput"]);
+
+const handleAddLine = () => {
+  emit("sendInput", {}, "line");
+};
+const handleScenarioDetail = () => {
+  emit("sendInput", {}, "detail");
+};
+const handleScenarioRevise = (request, messageType) => {
+  emit("sendInput", request, messageType);
+};
+
+const handleClickRevise = () => {
+  showInput.value = true;
 };
 </script>
 

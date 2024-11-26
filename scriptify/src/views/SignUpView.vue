@@ -69,6 +69,7 @@
 import { ref, computed } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { API_VERSION, BASE_URL, DOMAIN, END_POINT } from "@/constants/api";
 
 const name = ref("");
 const email = ref("");
@@ -96,7 +97,7 @@ const handleSignUp = () => {
 
   axios({
     method: "post",
-    url: "http://3.39.187.9/api/v1/accounts/signup/",
+    url: `${BASE_URL}${API_VERSION}${DOMAIN.USER}${END_POINT.SIGNUP}`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -144,7 +145,6 @@ const handleSignUp = () => {
 
 .input-group label {
   font-size: 14px;
-  /* color: #bbb; */
   display: block;
   margin-bottom: 8px;
 }
@@ -155,7 +155,6 @@ const handleSignUp = () => {
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #444;
-  /* background-color: #222; */
   color: black;
 }
 
