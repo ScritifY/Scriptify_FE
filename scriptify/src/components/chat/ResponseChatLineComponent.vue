@@ -1,12 +1,14 @@
 <!-- ResponseChatLineComponent.vue -->
 <template>
   <div class="line-chat">
-    <div 
-      v-for="line in lines.response.data.lines" 
-      :key="line.id" 
+    <div
+      v-for="line in lines.response.data.lines"
+      :key="line.id"
       class="chat-line"
     >
-      <p><strong>{{ line.name }}:</strong> {{ line.content }}</p>
+      <p>
+        <strong>{{ line.name }}:</strong> {{ line.content }}
+      </p>
     </div>
   </div>
 </template>
@@ -15,7 +17,6 @@
 const props = defineProps({
   lines: Array,
 });
-
 </script>
 
 <style scoped>
@@ -24,7 +25,7 @@ const props = defineProps({
   width: 80%;
   padding: 20px;
   background-color: #f7f7f7;
-  border-radius: 10px 
+  border-radius: 10px;
 }
 
 .chat-line {

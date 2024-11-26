@@ -1,49 +1,57 @@
 <template>
-    <div class="login-container">
+  <div class="login-container">
     <div class="login-box">
-    <h1 class="login-title"></h1>
-    <form @submit.prevent="handleLogin">
+      <h1 class="login-title"></h1>
+      <form @submit.prevent="handleLogin">
         <div class="form-group">
-        <label for="email">이메일</label>
-        <input type="email" id="email" v-model="email" placeholder="이메일을 입력해주세요." />
+          <label for="email">이메일</label>
+          <input
+            type="email"
+            id="email"
+            v-model="email"
+            placeholder="이메일을 입력해주세요."
+          />
         </div>
         <div class="form-group">
-        <label for="password">비밀번호</label>
-        <input
+          <label for="password">비밀번호</label>
+          <input
             type="password"
             id="password"
             v-model="password"
             placeholder="비밀번호를 입력해주세요"
-        />
+          />
         </div>
         <button type="submit" class="login-button">로그인</button>
-    </form>
-    <div class="login-footer">
-        <p class="p-guide">Scripify가 처음이신가요? <RouterLink to="/signup" class="signup-link">회원가입</RouterLink></p>
+      </form>
+      <div class="login-footer">
+        <p class="p-guide">
+          Scripify가 처음이신가요?
+          <RouterLink to="/signup" class="signup-link">회원가입</RouterLink>
+        </p>
+      </div>
     </div>
-    </div>
-</div>
+  </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import { useAuthStore } from '@/stores/auth';
-  import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
 
-  const router = useRouter();
-  const authStore = useAuthStore();
-  const email = ref('')
-  const password = ref('')
+const router = useRouter();
+const authStore = useAuthStore();
+const email = ref("");
+const password = ref("");
 
-  const handleLogin = () => {
-    const requestUser = {
-        email: email.value,
-        password: password.value
-    };
+const handleLogin = () => {
+  const requestUser = {
+    email: email.value,
+    password: password.value,
+  };
 
-    authStore.login(requestUser);
-    router.push({ name: 'home' })
-  }
+  authStore.login(requestUser);
+  router.push({ name: "home" });
+};
 </script>
 
 <style scoped>
@@ -54,21 +62,18 @@
   height: 100vh;
   background: #d5c2b4;
   color: #fff;
-  
-
 }
 
 /* 로그인 박스 */
 .login-box {
   padding: 40px;
   border-radius: 20px;
-
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
   background: linear-gradient(to bottom, #d5c2b4, #f0e5dd);
-  border: 1px ridge #d5c2b4
+  border: 1px ridge #d5c2b4;
 }
 
 /* 제목 스타일 */
@@ -114,7 +119,7 @@ input {
 }
 
 .login-button:hover {
-  background-color: #7a695d; 
+  background-color: #7a695d;
 }
 
 /* 푸터 */
@@ -132,8 +137,8 @@ input {
 .signup-link:hover {
   text-decoration: underline;
 }
-.p-guide{
-  color: #7a695d; 
+.p-guide {
+  color: #7a695d;
   text-decoration: none;
   font-weight: bold;
 }
