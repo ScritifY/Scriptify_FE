@@ -3,36 +3,23 @@
     <div class="grid">
       <button
         class="genre-btn"
-        v-for="(genre, index) in genres"
+        v-for="(genre, index) in GENRE_MAP"
         :key="index"
-        @click="selectGenre(genre.value)"
+        @click="selectGenre(index)"
       >
-        {{ genre.label }}
+        {{ genre }}
       </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineEmits } from "vue";
+import { GENRE_MAP } from "@/constants/constant";
 
-const genres = [
-  { value: 1, label: "액션" },
-  { value: 2, label: "애니메이션" },
-  { value: 3, label: "코미디" },
-  { value: 4, label: "범죄" },
-  { value: 5, label: "판타지" },
-  { value: 6, label: "공포" },
-  { value: 7, label: "로맨스" },
-  { value: 8, label: "공상 과학" },
-  { value: 9, label: "스릴러" },
-];
+const emit = defineEmits(["selectGenre"]);
 
-const emit = defineEmits(["select-genre"]);
-
-// 선택된 장르 전달 함수
-const selectGenre = (genre) => {
-  emit("select-genre", genre);
+const selectGenre = (genreId) => {
+  emit("selectGenre", genreId);
 };
 </script>
 

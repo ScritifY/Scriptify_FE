@@ -1,8 +1,5 @@
 <template>
   <div class="input-container">
-    <label for="message"></label>
-
-    <!-- 시간, 공간, 장르 입력 -->
     <input
       class="input-box"
       type="text"
@@ -15,17 +12,17 @@
       v-model="space"
       placeholder="공간적 배경을 넣어주세요."
     />
-    <!-- <input type="text" v-model="genre" placeholder="Genre" /> -->
     <div class="genre-container">
-      <!-- <input type="text" v-model="genre" placeholder="Genre" readonly /> -->
       <button class="btn-genre" @click="toggleGenreChoice">
-        장르도 골라주세요!
+        {{ genre ? GENRE_MAP[genre] : "장르를 골라주세요!" }}
       </button>
     </div>
-    <!-- GenreChoiceComponent -->
 
-    <GenreChoiceComponent v-if="showGenreChoice" @select-genre="setGenre" />
-    <button class="btn-send-message" @click="sendMessage">
+    <GenreChoiceComponent
+      v-if="showGenreChoice"
+      @select-genre="handleChoiceGenre"
+    />
+    <button class="btn-send-message" @click="handleSendMessage">
       <font-awesome-icon class="fa-2x" :icon="['fas', 'pen']" />
     </button>
   </div>
@@ -35,33 +32,38 @@
 import { ref } from "vue";
 import GenreChoiceComponent from "./GenreChoiceComponent.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { GENRE_MAP } from "@/constants/constant";
 
 const time = ref("");
 const space = ref("");
 const genre = ref("");
-const emit = defineEmits(["send-input"]);
 const showGenreChoice = ref(false);
+const emit = defineEmits(["send-input"]);
 
 const toggleGenreChoice = () => {
   showGenreChoice.value = !showGenreChoice.value;
 };
-const setGenre = (selectedGenre) => {
+
+const handleChoiceGenre = (selectedGenre) => {
   genre.value = selectedGenre;
-  showGenreChoice.value = false; // 장르 선택 UI 닫기
+  showGenreChoice.value = false;
 };
-// 메시지를 보내는 함수
-const sendMessage = () => {
-  // 입력값을 부모 컴포넌트로 전달
+
+const handleSendMessage = () => {
+  const isEmpty = !time.value || !space.value || !genre.value;
+  if (isEmpty) {
+    alert("모든 항목을 입력해주세요.");
+    return;
+  }
+
   const input = {
     time: time.value,
     space: space.value,
     genreId: genre.value,
   };
 
-  // 메시지 전송 EMIT을 정의
-  emit("send-input", input);
+  emit("send-input", input, "first");
 
-  // 입력값 초기화
   time.value = "";
   space.value = "";
   genre.value = "";
@@ -81,7 +83,6 @@ input {
   align-items: center;
   padding: 15px;
   border: 3px double #f0e5dd;
-  /* border: 3px ridge #f0e5dd; */
   background-color: #d5c2b4;
   font-size: 1rem;
 }
@@ -91,7 +92,6 @@ input {
   border-top: none;
   width: 220px;
   height: 30px;
-  /* border-bottom: 3px solid black; */
   font-size: 1rem;
   border: 2px ridge #eea57b;
   color: #d59b69;
@@ -100,10 +100,6 @@ input {
 .genre-container {
   width: 236px;
   height: 46px;
-  /* border-right: none;
-  border-left: none;
-  border-top: none;
-  border-bottom: 3px solid black; */
   font-size: 1rem;
 }
 .btn-genre {
@@ -125,7 +121,6 @@ button {
 }
 .btn-send-message {
   width: 50px;
-  /* height: 45px; */
   margin-top: 20px;
   background-color: #414345;
   background-color: #f7e5d5;

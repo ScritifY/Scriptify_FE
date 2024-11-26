@@ -1,36 +1,44 @@
+import { API_VERSION, BASE_URL, DOMAIN } from "@/constants/api";
 import axios from "axios";
 import { defineStore } from "pinia";
+import { useAuthStore } from "./auth";
 
 export const useChatStore = defineStore("chat", {
   state: () => ({
-    isLoggedIn: false,
-    token: localStorage.getItem("token") || "",
-    scenarioId: localStorage.getItem("scenarioId") || "",
+    scenarioId: "",
   }),
 
   actions: {
-    async createScenario(request = {}, type) {
+    async createScenario(request, messageType) {
+      const authStore = useAuthStore();
+
+      const data =
+        messageType === "first"
+          ? request
+          : {
+              ...request,
+              scenarioId: this.scenarioId,
+            };
+
       try {
         const response = await axios({
           method: "post",
-          url: `http://3.39.187.9/api/v1/scenario/?messageType=${type}`,
+          url: `${BASE_URL}${API_VERSION}${DOMAIN.SCENARIO}?messageType=${messageType}`,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${this.token}`,
+            Authorization: `Token ${authStore.token}`,
           },
-          data: {
-            ...request,
-            scenarioId: this.scenarioId,
-          },
+          data,
         });
         console.log("시나리오 생성 성공", response);
-        localStorage.setItem("scenarioId", response.data.scenarioId); // 상태 저장
-        return response.data; // 데이터를 반환
+
+        this.scenarioId = response.data.scenarioId;
+        return response.data;
       } catch (error) {
         console.error("시나리오 생성 실패", error);
-        throw error; // 에러를 호출부로 전달
+        throw error;
       }
     },
   },
-  persist: true, // 상태를 로컬 스토리지에 저장하도록 설정
+  persist: true,
 });

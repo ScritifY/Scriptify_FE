@@ -12,10 +12,10 @@
             >Review</RouterLink
           >
         </li>
-        <li v-if="authStore.isLoggedIn">
+        <li v-if="authStore.token">
           <button @click="logout" class="router_logout">Logout</button>
         </li>
-        <li v-else>
+        <li v-else class="auth_container">
           <RouterLink :to="{ name: 'login' }" class="router_login"
             >login</RouterLink
           >
@@ -31,7 +31,6 @@
 <script setup>
 import { RouterLink, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { onMounted } from "vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -40,10 +39,6 @@ const logout = () => {
   authStore.logout();
   router.push({ name: "home" });
 };
-
-onMounted(() => {
-  authStore.checkLoginStatus(); // localStorage에서 토큰을 확인하고 로그인 상태 업데이트
-});
 </script>
 
 <style scoped>
@@ -60,6 +55,7 @@ onMounted(() => {
 }
 .navbar_list {
   display: flex;
+  align-items: center;
   list-style: none;
   padding-left: 15px;
   gap: 16px;
@@ -88,7 +84,12 @@ onMounted(() => {
 .router_logout {
   text-decoration: none;
   color: black;
+  font-size: 20px;
   border: none;
   background-color: inherit;
+}
+.auth_container {
+  display: flex;
+  gap: 16px;
 }
 </style>

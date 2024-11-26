@@ -64,7 +64,6 @@ const handleLogin = () => {
   color: #fff;
 }
 
-/* 로그인 박스 */
 .login-box {
   padding: 40px;
   border-radius: 20px;
@@ -76,14 +75,12 @@ const handleLogin = () => {
   border: 1px ridge #d5c2b4;
 }
 
-/* 제목 스타일 */
 .login-title {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-/* 폼 그룹 */
 .form-group {
   margin-bottom: 20px;
   text-align: left;
@@ -104,7 +101,6 @@ input {
   outline: none;
 }
 
-/* 버튼 스타일 */
 .login-button {
   width: 100%;
   background-color: #9f8d80;
@@ -122,7 +118,6 @@ input {
   background-color: #7a695d;
 }
 
-/* 푸터 */
 .login-footer {
   margin-top: 20px;
   font-size: 14px;

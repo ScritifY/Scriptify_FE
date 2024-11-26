@@ -7,9 +7,7 @@
     <InputComponent v-if="showInput && isFirst" @send-input="handleMessage" />
     <SecondInputComponent
       v-else-if="showInput && !isFirst"
-      @handle-line="handleLine"
-      @handle-scenario-change="handleScenarioChange"
-      @handle-detail="handleDetail"
+      @send-input="handleMessage"
     />
     <div class="chat-container">
       <BubbleChatComponent :messages="messages" />
@@ -25,116 +23,56 @@ import SecondInputComponent from "@/components/chat/SecondInputComponent.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { useChatStore } from "@/stores/chat";
 
-// 채팅 메시지들
-const showInput = ref(false);
 const messages = ref([]);
+const showInput = ref(false);
 const isFirst = ref(true);
 
 const chatStore = useChatStore();
 
-// 메시지를 처리하는 함수
 const handleButtonClick = () => {
   if (!showInput.value) {
-    // 첫 번째 버튼 클릭 시 InputComponent 표시
     showInput.value = true;
   } else {
-    // 두 번째 버튼 클릭 시 SecondInputComponent로 전환
     isFirst.value = false;
   }
 };
 
-async function handleMessage(request) {
-  try {
-    const response = await chatStore.createScenario(request, "first"); // 반환값 기다림
-    const genreId = request.genreId;
-
-    // messages 업데이트
-    messages.value.push(
-      {
-        messageId: response.data.messageId - 1,
-        type: "request",
-        messageType: response.type,
-        data: request,
-      },
-      {
-        messageId: response.data.messageId,
-        type: "response",
-        messageType: response.type,
-        data: response.data,
-      }
-    );
-
-    handleButtonClick();
-  } catch (error) {
-    console.error("Error while handling message:", error);
-  }
+function getRequestMessage(request, response) {
+  return {
+    messageId: response.data.messageId - 1,
+    type: "request",
+    messageType: response.type,
+    data: request,
+  };
 }
 
-async function handleLine() {
-  try {
-    const response = await chatStore.createScenario({}, "line");
+function getResponseMessage(response) {
+  return {
+    messageId: response.data.messageId,
+    type: "response",
+    messageType: response.type,
+    data: response.data,
+  };
+}
 
-    messages.value.push(
-      {
-        messageId: response.data.messageId - 1,
-        type: "request",
-        messageType: response.type,
-        data: {},
-      },
-      {
-        messageId: response.data.messageId,
-        type: "response",
-        messageType: response.type,
-        data: response.data,
-      }
-    );
+async function handleMessage(request, messageType) {
+  const isFirstMessage = messageType === "first";
+  const isSecondMessage = !isFirstMessage;
+
+  if (isSecondMessage) {
     showInput.value = false;
-  } catch (error) {
-    console.error("Error while handling message:", error);
   }
-}
-async function handleScenarioChange(request) {
-  showInput.value = false;
-  try {
-    const response = await chatStore.createScenario(request, "revise");
 
-    messages.value.push(
-      {
-        messageId: response.data.messageId - 1,
-        type: "request",
-        messageType: response.type,
-        data: request,
-      },
-      {
-        messageId: response.data.messageId,
-        type: "response",
-        messageType: response.type,
-        data: response.data,
-      }
-    );
-    showInput.value = false;
-  } catch (error) {
-    console.error("Error while handling message:", error);
-  }
-}
-async function handleDetail(input) {
-  showInput.value = false;
   try {
-    const response = await chatStore.createScenario({}, "revise");
-    messages.value.push(
-      {
-        messageId: response.data.messageId - 1,
-        type: "request",
-        messageType: response.type,
-        data: {},
-      },
-      {
-        messageId: response.data.messageId,
-        type: "response",
-        messageType: response.type,
-        data: response.data,
-      }
-    );
+    const response = await chatStore.createScenario(request, messageType);
+    const requestMessage = getRequestMessage(request, response);
+    const responseMessage = getResponseMessage(response);
+
+    messages.value.push(requestMessage, responseMessage);
+
+    if (isFirstMessage) {
+      handleButtonClick();
+    }
   } catch (error) {
     console.error("Error while handling message:", error);
   }
