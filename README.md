@@ -48,13 +48,21 @@
 <b>[Front-end]</b>
 <br/>
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+![Vue](https://img.shields.io/badge/vue-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)
+![CSS3](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
 
 
 <b>[Back-end]</b>
 <br/>
 <img src="https://img.shields.io/badge/OpenJDK 17-999999?style=for-the-badge&logo=OpenJDK&logoColor=white">
+  ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+  ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 
-
+<b>devOps</b>
+<br/>
+  ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) 
+    ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)  
 <br/>
 
 ## 🔨 시스템 아키텍처
@@ -65,9 +73,10 @@
 
 ## 🗒️ ERD 설계
 
-- [ERD 링크]()
+- [ERD 링크](	
+https://www.erdcloud.com/d/cvvYWF9HwdnzjnHYR)
 
-사진 하나 올려주면서
+![scriptify_erd_v2](https://github.com/user-attachments/assets/5cacfea0-5811-499e-90c7-c7dde312db85)
 
 <br/>
 
