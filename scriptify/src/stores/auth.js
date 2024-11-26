@@ -5,6 +5,7 @@ import { defineStore } from "pinia";
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     token: null,
+    userId: null,
   }),
 
   actions: {
@@ -19,25 +20,24 @@ export const useAuthStore = defineStore("auth", {
       })
         .then((response) => {
           this.token = response.data.key;
-          this.isLoggedIn = true;
-          this.getUserInfo(this.token);
+          this.getUserInfo();
         })
         .catch((error) => {
           console.log("로그인 실패", error);
           alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
         });
     },
-    getUserInfo(request){
+
+    getUserInfo() {
       axios({
         method: "get",
-        url: "http://3.39.187.9/api/v1/accounts/user/",
+        url: `${BASE_URL}${API_VERSION}${DOMAIN.USER}${END_POINT.USER_INFO}`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Token ${request}`,
+          Authorization: `Token ${this.token}`,
         },
       })
         .then((response) => {
-          localStorage.setItem("userId", parseInt(response.data.id));
           this.userId = parseInt(response.data.id);
         })
         .catch((error) => {
