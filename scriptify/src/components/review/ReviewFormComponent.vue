@@ -1,35 +1,38 @@
 <template>
-  <div class="review-form">
-    <form @submit.prevent="submitReview">
-      <div>
-        <label for="rank">별점 (0 ~ 5):</label>
-        <select v-model="newReview.rank" id="rank">
-          <option v-for="n in 6" :key="n" :value="n - 1">{{ n - 1 }}</option>
-        </select>
-      </div>
-      <div>
-        <label for="content">코멘트:</label>
-        <textarea
-          class="content"
-          v-model="newReview.content"
-          id="content"
-          placeholder="코멘트 입력"
-          required
-        ></textarea>
-      </div>
-      <div class="btn-container">
-        <button class="btn-send" type="submit">
-          <font-awesome-icon class="fa-2x" :icon="['far', 'paper-plane']" />
-        </button>
-      </div>
-    </form>
+  <div class="overlay" @click="cancelReview">
+    <div class="review-form" @click.stop>
+      <form @submit.prevent="submitReview">
+        <div>
+          <label for="rank">별점</label>
+          <select v-model="newReview.rank" id="rank">
+            <option v-for="n in 6" :key="n" :value="n - 1">{{ n - 1 }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="content">코멘트:</label>
+          <textarea
+            class="content"
+            v-model="newReview.content"
+            id="content"
+            placeholder="코멘트 입력"
+            required
+          ></textarea>
+        </div>
+        <div class="btn-container">
+          <button class="btn-send" type="submit">작성</button>
+          <button class="btn-close" type="button" @click="cancelReview">
+            닫기
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 
-const emit = defineEmits(["submit-review"]);
+const emit = defineEmits(["submit-review", "cancel-review"]);
 
 const newReview = ref({
   rank: 0,
@@ -40,52 +43,88 @@ const submitReview = () => {
   if (newReview.value.content) {
     emit("submit-review", { ...newReview.value });
     newReview.value.rank = 0;
+    newReview.value.content = "";
   }
+};
+
+const cancelReview = () => {
+  emit("cancel-review");
+  newReview.value.rank = 0;
+  newReview.value.content = "";
 };
 </script>
 
 <style scoped>
+/* 화면 바깥 딤처리 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* 딤 처리 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 폼 스타일 */
 .review-form {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  position: relative;
   width: 300px;
-  margin: 0 auto;
-  text-align: left;
-  background-color: #f0e5dd;
-  height: 300px;
+  padding: 20px;
+  background-color: #3a3a3a; /* 어두운 회색 배경 */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1001; /* 다른 콘텐츠보다 위로 */
 }
+
 form div {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
+
 form label {
   display: block;
-  margin-bottom: 5px;
-  border: 1px ridge bisque;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #fff;
 }
+
 form input,
 form select,
 form textarea {
   width: 100%;
-  padding: 5px;
-  border: 1px solid #ccc;
+  padding: 8px;
+  border: 2px ridge #d0d0d0; /* 연한 회색 */
   border-radius: 4px;
-  border: 2px ridge bisque;
+  background-color: #333; /* 입력 필드 배경 */
+  color: #fff; /* 텍스트 색상 */
 }
+
+form select,
+form textarea {
+  font-size: 14px;
+}
+
 button {
-  display: block;
-  margin-top: 10px;
+  display: inline-block;
   padding: 10px;
-  background-color: #9f8d80;
+  background-color: #8a7f73; /* 어두운 베이지색 */
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top: 10px;
 }
-/* button:hover {
-    background-color: #9f8d80;;
-  } */
+
+button:hover {
+  background-color: #7a695d;
+}
+
 .content {
   height: 50px;
 }
@@ -93,16 +132,22 @@ button {
 .btn-container {
   display: flex;
   justify-content: end;
+  gap: 10px;
 }
 
 .btn-send {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #8a7f73;
 }
 
 .btn-send:hover {
   background-color: #7a695d;
+}
+
+.btn-close {
+  background-color: #e74c3c; /* 빨간색 */
+}
+
+.btn-close:hover {
+  background-color: #c0392b;
 }
 </style>

@@ -6,6 +6,7 @@ import { useAuthStore } from "./auth";
 export const useChatStore = defineStore("chat", {
   state: () => ({
     scenarioId: "",
+    isLoading: false,
   }),
 
   actions: {
@@ -19,6 +20,8 @@ export const useChatStore = defineStore("chat", {
               ...request,
               scenarioId: this.scenarioId,
             };
+
+      this.isLoading = true;
 
       try {
         const response = await axios({
@@ -37,6 +40,8 @@ export const useChatStore = defineStore("chat", {
       } catch (error) {
         console.error("시나리오 생성 실패", error);
         throw error;
+      } finally {
+        this.isLoading = false;
       }
     },
   },
