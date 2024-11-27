@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
 
@@ -53,6 +53,12 @@ const handleLogin = async () => {
 
   router.push({ name: "home" });
 };
+
+onBeforeMount(() => {
+  if (authStore.token) {
+    router.push({ name: "home" })
+  }
+})
 </script>
 
 <style scoped>
